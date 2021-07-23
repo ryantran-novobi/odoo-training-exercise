@@ -7,9 +7,9 @@ My company, Amber VN, is a distribution company. We sell to both customers (B2C)
 
 We want to allow our retailers to place the order themselves, by going to B2B portal. They can see the list of products with a quantity of discount corresponding to their retailer group. Once the retailer place the order request, it will create a request in the back-office view, request an Review Activity to a salesperson. The retailer can also integrate their enterprise system to send the order requests to us via APIs. Assume that all the products have the barcode, the client will use that same barcode to place the order.
 
-In the back-office, using the Sales modules, we want to let our salesperson see a list of pending requests which need to be reviewed and approve/reject. The salesperson is allowed to lower the demand of some product or remove them completely from the order, but isn't allowed to sell more than what the retailer requested. Once approved, Odoo will create the Quotation will corresponding demand quantity taken from the order request, and the treat it as normal sale order.
+In the back-office, using the Sales modules, we want to let our salesperson see a list of pending requests which need to be reviewed and approve/reject. The salesperson is allowed to lower the demand of some product or remove them completely from the order, but isn't allowed to sell more than what the retailer requested. Once approved, Odoo will create the Quotation with corresponding demand quantities taken from the order request, and then treat it as normal sale order.
 
-On the portal, retailers can see a list of their requests, with the current state of pending/approved/rejected. Also, on the sale request, if approved, retailers can see the quantity for each product that approved by the salesperson and they can expect to get them. A timeline component will be displayed and represent the state of the Order Request, Sale Order, Delivery Order. If approved, they can then navigate to the specific sale orders to view the details.
+On the portal, retailers can see a list of their requests, with the current state of pending/approved/rejected. Also, on the sale request, if approved, retailers can see the quantity for each product that approved by the salesperson, so they can expect to get those products in the fulfillment. A timeline component will be displayed and present the state of the Order Request, Sale Order, Delivery Order. If approved, they can then navigate to the specific sale orders to view the details (reuse the Sale Order on the portal provided by Odoo out-of-the-box).
 
 Here is an example how to pricelist work for the retailers:
 
@@ -39,7 +39,6 @@ Here is an example how to pricelist work for the retailers:
 |Name|Variant|Price|
 |-|-|-|
 |Product A|Blue,Green|800,000|
-|Product B|Grey, Blue|640,000|
 
 # Technical Requirements
 
