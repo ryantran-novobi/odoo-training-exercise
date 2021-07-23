@@ -45,7 +45,7 @@ Here is an example how to pricelist work for the retailers:
 
 ## General
 
-- Create a new module, `sales_b2b`
+- Create a new module, `novobi_sales_b2b`
 - Odoo v14
 - Follow Odoo Guidelines
 
@@ -55,14 +55,14 @@ Here is an example how to pricelist work for the retailers:
 - Assume that, only products matched the criteria in the pricelist will be shown to the retailer
 
 ## View
-- Create list, form, and pivot views for `sale.request` in the backend
+- Create list, form, and pivot views for `sale.request` in the backend. You can refer to Sale Order view.
 - Place a menu, before Quotation in the Sales module
 
 ## Security
-- Salesperson cannot modify the request which doesn't allocate to he/she
+- Salesperson cannot modify the request which isn't allocated to he/she
 
 ## Wizard
-- Adding a wizard, to allow user approve a batch of requests, approved quantities are the same as demand
+- Adding a wizard, to allow user approve a batch of requests, approved quantities will be the same as demand
 
 ## Cron Job
 - Create a cron job, search for delivery orders done within today, and send an email to inform the retailer that they are going to receive the order soon.
@@ -75,7 +75,12 @@ Here is an example how to pricelist work for the retailers:
 - Create a page to let the retailer place the order, view the details of the request and the timeline
 - The portal is developed using Odoo JS/OWL
 
+![image](https://user-images.githubusercontent.com/75324741/126755584-71acfcdf-4856-4172-abb4-a84f858f6906.png)
+![image](https://user-images.githubusercontent.com/75324741/126755626-3a25713d-446e-46fc-9ee9-3531d03ac346.png)
+![image](https://user-images.githubusercontent.com/75324741/126755678-32464032-2510-487c-bc0c-51b32a2652e3.png)
+
 # How to submit your excercise
 
+- Feel free to ask follow up questions, or you can take assumption yourself. The goal of the final assignment is test both the ability to analyze the requirement and come up with the solution, and the ability to deliver the solution using Odoo
 - Fork this repo privately and propose a Pull Request for your source code
 - Record a video demo and showcase your solution
