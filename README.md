@@ -3,7 +3,7 @@ Sales B2B
 
 # Business Concepts
 
-My company, Amber VN, is a distribution company. We sell to both customers (B2C) and retailers (B2B). Odoo out-of-the-box provides us the feature to let the customer shop online with the eCommerce module, and we are happy about that. But sadly, it does not allow us to sell effectively for the retailers. Because for retailers, we will allocate them into 3 main groups, Big Retailer, Medium Retailer, and Small Retaier, with each group having a different list of products that they are able to buy, and with different discount.
+My company, Amber, is a distribution company. We sell to both customers (B2C) and retailers (B2B). Odoo out-of-the-box provides us the feature to let the customer shop online with the eCommerce module, and we are happy about that. But sadly, it does not allow us to sell effectively for the retailers. Because for retailers, we will allocate them into 3 main groups, Big Retailer, Medium Retailer, and Small Retaier, with each group having a different list of products that they are able to buy, and with different discount.
 
 We want to allow our retailers to place the order themselves, by going to B2B portal. They can see the list of products with a quantity of discount corresponding to their retailer group. Once the retailer place the order request, it will create a request in the back-office view, request an Review Activity to a salesperson. The retailer can also integrate their enterprise system to send the order requests to us via APIs. Assume that all the products have the barcode, the client will use that same barcode to place the order.
 
@@ -58,7 +58,7 @@ Here is an example how to pricelist work for the retailers:
 - Place a menu, before Quotation in the Sales module
 
 ## Security
-- Salesperson cannot modify the request which isn't allocated to he/she
+- Salesperson cannot modify the request which isn't allocated to him/her
 
 ## Wizard
 - Adding a wizard, to allow user approve a batch of requests, approved quantities will be the same as demand
