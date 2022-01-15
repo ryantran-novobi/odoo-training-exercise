@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- List view -->
+        <record id="sale_request_view_tree" model="ir.ui.view">
+            <field name="name">sale.request.tree</field>
+            <field name="model">sale.request</field>
+            <field name="arch" type="xml">
+                <tree string="Sales Requests" sample="1">
+                    <field name="name" readonly="1"></field>
+                    <field name="date_request" readonly="1"></field>
+                    <field name="partner_id" readonly="1"></field>
+                    <field name="sale_user_id" widget="many2one_avatar_user" readonly="1"></field>
+                    <field name="company_id" optional="show" readonly="1"></field>
+                    <field name="amount_total" readonly="1"></field>
+                    <field name="amount_item" readonly="1"></field>
+                    <field name="request_state" widget="badge"
+                        decoration-info="request_state == 'draft'" 
+                        decoration-primary="request_state == 'pending'" 
+                        decoration-success="request_state == 'approved'" 
+                        decoration-danger="request_state == 'rejected'"
+                        decoration-warning="request_state == 'cancelled'"></field>
+                    <field name="tag_ids" widget="many2many_tags" readonly="1"></field>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form view -->
+        <record id="sale_request_view_form" model="ir.ui.view">
+            <field name="name">sale.request.form</field>
+            <field name="model">sale.request</field>
+            <field name="arch" type="xml">
+                <form string="Request Order" class="o_sale_order" js_class="sale_discount_form">
+                    <header>
+                        <button name="make_approved" string="Approve" type="object" class="oe_highlight"></button>
+                        <button name="make_rejected" string="Reject" type="object" class="oe_highlight"></button>
+                        <button name="make_cancelled" string="Cancel" type="object" class="btn"></button>
+                        <field name="request_state" widget="statusbar" statusbar_visible="draft,pending,approved,rejected,cancelled"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                        <button name="action_view_sale_order"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-pencil-square-o"
+                            attrs="{'invisible': [('request_state', '!=', 'approved')]}">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">Quotation</span>
+                            </div>
+                        </button>
+                    </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group name="partner_details">
+                                <field name="company_id"/>
+                                <field name="sale_user_id"/>
+                                <field name="partner_id" widget="res_partner_many2one"/>
+                            </group>
+                            <group name="request_details">
+                                <field name="date_request" readonly="1"/>
+                                <field name="date_order" readonly="1" attrs="{'invisible': [('request_state', '!=', 'approved')]}"/>
+                                <field name="pricelist_id"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Request Lines" name="request_lines">
+                                <field name="request_line" widget="section_and_note_one2many" mode="tree">
+                                    <tree string="Sales Requests Lines" editable="bottom">
+                                        <control>
+                                            <create name="add_product_control" string="Add a product"/>
+                                            <create name="add_section_control" string="Add a section"/>
+                                            <create name="add_note_control" string="Add a note"/>
+                                        </control>
+
+                                        <field name="product_id" string="Product"/>
+                                        <field name="name" widget="section_and_note_text" string="Description" optional="show"/>
+                                        <field name="product_uom_qty" string="Quantity"/>
+                                        <field name="price_unit" string="Unit Price"/>
+                                        <!-- <field name="discount" string="Disc.%" optional="show" widget="product_discount"/> -->
+                                        <field name="price_subtotal"/>
+                                    </tree>
+                                </field>
+                                <group name="note_group" col="6" class="mt-2 mt-md-0">
+                                    <group class="oe_subtotal_footer oe_right" colspan="2" name="request_sale_total">
+                                        <field name="amount_total" colspan="2"/>
+                                    </group>
+                                    <div class="oe_clear"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        
+        <record id="sale_request_action" model="ir.actions.act_window">
+            <field name="name">Sales Requests</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.request</field>
+            <field name="view_mode">tree,form,pivot</field>
+            <field name="view_ids" eval="[(5,0,0),
+                (0,0,{'view_mode':'tree', 'view_id': ref('novobi_sales_b2b.sale_request_view_tree')}),
+                (0,0,{'view_mode':'form', 'view_id': ref('novobi_sales_b2b.sale_request_view_form')})]"/>
+        </record>
+
+        <record id="open_order_view_form_action" model="ir.actions.act_window">
+            <field name="name">Quotation</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="sale.view_order_form"/>
+        </record>
+
+        <record id="sale_request_approve_action" model="ir.actions.server">
+            <field name="name">Approve Request</field>
+            <field name="model_id" ref="novobi_sales_b2b.model_sale_request"/>
+            <field name="binding_model_id" ref="novobi_sales_b2b.model_sale_request"/>
+            <field name="binding_type">action</field>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">action = records.multi_approve_sale_request()</field>
+        </record>
+
+        <menuitem 
+            id="sale_request_menu"
+            name="Sales Requests"
+            parent="sale.sale_order_menu"
+            action="sale_request_action"
+            sequence="0"/>
+    </data>
+</odoo>

@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+acl_sale_request,sale.request default,model_sale_request,,1,1,1,1
+acl_sale_request_line,sale.request.line default,model_sale_request_line,,1,1,1,1
+acl_stock_picking_sent_email,stock.picking.sent.email default,model_stock_picking_sent_email,,1,1,1,1
+acl_sale_request_wizard,sale.request.wizard default,model_sale_request_wizard,,1,1,1,1

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="done_delivery_order_sent_email" model="ir.cron">
+        <field name="name">Mail: Done Delivery Order</field>
+        <field name="model_id" ref="novobi_sales_b2b.model_stock_picking_sent_email"/>
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="code">model.search([('state', '=', 'done')])._cron_automatic_sent_email()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+    </record>
+</odoo>

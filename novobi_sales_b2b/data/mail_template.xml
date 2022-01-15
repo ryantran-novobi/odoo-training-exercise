@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="delivery_order_email_template" model="mail.template">
+            <field name="name">Delivery Order: Confirmation email</field>
+            <field name="model_id" ref="novobi_sales_b2b.model_stock_picking_sent_email"/>
+            <field name="subject">{{ object.company_id.name }} (Ref {{ object.name or 'n/a' }})</field>
+            <field name="email_from">{{ (object.user_id.email_formatted or user.email_formatted) }}</field>
+            <field name="partner_to">{{ object.partner_id.id }}</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        <t t-set="doc_name" t-value="'delivery order'"/>
+                        Hello,
+                        <br/><br/> 
+                        Your <t t-out="doc-name"/> <strong t-out="object.name or ''"></strong>
+                        is going to be delivered. You are going to receive the order soon.
+                        <br/><br/>
+                        Thank you for using our services.
+                        <br/>
+                        Do not hesitate to contact us if you have any questions.
+                        <br/>
+                    </p>
+                </div>
+            </field>
+            <field name="report_name">Delivery mail confirmation for {{ (object.name or '').replace('/','_') }}</field>
+            <field name="auto_delete" eval="False"/>
+        </record>
+    </data>
+</odoo>
